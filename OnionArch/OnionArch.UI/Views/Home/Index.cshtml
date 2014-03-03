@@ -1,0 +1,59 @@
+﻿@model OnionArch.UI.ViewModel.HomeViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ToDo App - Demo Onion Archictecture</title>
+</head>
+<body>
+    <h1>ToDo Application</h1>
+    <p>
+        @Html.Partial("_Create", Model.NewTodo)
+    </p>
+    <table style="width: 800px">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Todos.First().Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todos.First().TimeLeft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Todos.First().IsCompleted)
+            </th>
+            <th>Actions</th>
+        </tr>
+    
+    @foreach (var item in Model.Todos) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeLeft)
+            </td>
+            <td style="text-align: center">
+                @Html.DisplayFor(modelItem => item.IsCompleted)
+            </td>
+            <td>
+                @if(item.CanEdit){
+                    <img src="Images/Actions-dialog-ok-apply-icon.png" alt="Mark as Completed" /> 
+                    @Html.ActionLink("Mark As Completed", "MarkAsCompleted", new { id = item.ID })
+                    <text> | </text>
+                }
+                
+                <img src="Images/Action-cancel-icon.png" alt="Delete" /> 
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
